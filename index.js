@@ -13,34 +13,67 @@ let px, py;
 
 let state = "blank";
 
-document.getElementById("abstract").addEventListener("click", () => {
+let blankText = document.getElementById("blank");
+let abstractBtn = document.getElementById("abstract");
+let colorBtn = document.getElementById("color");
+let leavesBtn = document.getElementById("leaves");
+
+function resetButtonStyles() {
+  Array.from(document.getElementsByClassName("tool-button")).forEach(
+    (button) => {
+      button.classList.remove("active");
+      button.style.borderWidth = "1px";
+    }
+  );
+}
+
+function activeBtn(ele) {
+  ele.classList.add("active");
+  Array.from(document.getElementsByClassName("active")).forEach((activeBtn) => {
+    activeBtn.style.borderWidth = "3px";
+  });
+}
+
+abstractBtn.addEventListener("click", () => {
   if (state == "abstract") {
     state = "blank";
   } else {
     state = "abstract";
+    blankText.style.display = "none";
+    resetButtonStyles();
+    activeBtn(abstractBtn);
   }
 });
 
-document.getElementById("color").addEventListener("click", () => {
+colorBtn.addEventListener("click", () => {
   if (state == "color") {
     state = "blank";
   } else {
     state = "color";
+    blankText.style.display = "none";
+    resetButtonStyles();
+    activeBtn(colorBtn);
   }
 });
 
-document.getElementById("leaves").addEventListener("click", () => {
+leavesBtn.addEventListener("click", () => {
   if (state == "leaves") {
     state = "blank";
   } else {
     state = "leaves";
+    blankText.style.display = "none";
+    resetButtonStyles();
+    activeBtn(leavesBtn);
   }
 });
 
 document.getElementById("clear").addEventListener("click", () => {
+  state = "blank";
   ctx.clearRect(0, 0, width, height);
   ctx.fillStyle = "rgb(251,247,242)";
   ctx.fillRect(0, 0, width, height);
+  blankText.style.display = "flex";
+  resetButtonStyles();
 });
 
 let lineColors = [
@@ -70,9 +103,9 @@ function abstractBrush(x, y, color) {
   ctx.moveTo(px, py);
   ctx.fillStyle = color;
   ctx.strokeStyle = color;
-  let thickness = randomRange(2.5, 5);
+  let thickness = randomRange(2.5, 4.5);
   if (distance(x, y, px, py) > 30) {
-    thickness = randomRange(8, 10);
+    thickness = randomRange(6, 8);
   }
 
   ctx.lineTo(x, y);
@@ -154,7 +187,7 @@ function drawStart(x, y) {
   px = x;
   py = y;
   thickLineColor = lineColors[Math.floor(Math.random() * lineColors.length)];
-  console.log(state);
+  //   console.log(state);
 }
 
 function paintMove(x, y) {
@@ -163,24 +196,12 @@ function paintMove(x, y) {
 
   draw(x, y, thickLineColor);
 
-  //   rainbowBrush(x, y);
-
-  //   if (distance(x, y, px, py) >= 20) {
-  //     leaveBrush(x, y);
-  //   } else {
-  //     return;
-  //   }
-
   px = x;
   py = y;
 }
 
 function drawEnd(x, y) {
   penDown = false;
-  //   ctx.beginPath();
-  //   ctx.fillStyle = "none";
-  //   ctx.arc(x, y, 20, 0, 2 * Math.PI);
-  //   ctx.stroke();
 }
 
 canvas.addEventListener("mousedown", (event) => {
