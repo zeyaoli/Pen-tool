@@ -34,6 +34,8 @@ function activeBtn(ele) {
   });
 }
 
+resetButtonStyles();
+
 abstractBtn.addEventListener("click", () => {
   if (state == "abstract") {
     state = "blank";
