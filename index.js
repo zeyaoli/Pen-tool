@@ -28,7 +28,7 @@ function resetButtonStyles() {
   Array.from(document.getElementsByClassName("tool-button")).forEach(
     (button) => {
       button.classList.remove("active");
-      button.style.borderWidth = "1px";
+      button.style.background = "none";
     }
   );
 }
@@ -36,7 +36,7 @@ function resetButtonStyles() {
 function activeBtn(ele) {
   ele.classList.add("active");
   Array.from(document.getElementsByClassName("active")).forEach((activeBtn) => {
-    activeBtn.style.borderWidth = "3px";
+    activeBtn.style.background = `burlywood`;
   });
 }
 
@@ -116,7 +116,7 @@ function getMousePos(canvas, event) {
   };
 }
 
-function autumnBrush(x, y, color) {
+function autumnBrush(x, y) {
   let autumnPalette = [`#FF6034`, `#FF9828`, `#FFDB31`, `#D9D32F`];
   ctx.beginPath();
   //random chance - either two leaves or one
@@ -161,7 +161,7 @@ function dirtBrush(x, y) {
     ctx.arc(
       x - norm_random(50),
       y - norm_random(50),
-      Math.random() * 0.2,
+      Math.random() * 0.5,
       0,
       2 * Math.PI
     );
@@ -209,6 +209,44 @@ function leaveBrush(x, y) {
   ctx.fill();
 }
 
+function leaves(x, y) {
+  let autumnPalette = [`#FF6034`, `#FF9828`, `#FFDB31`, `#D9D32F`];
+  let eWidth = randomRange(25, 40);
+  let eHeight = randomRange(5, 10);
+  ctx.translate(x + width / 2, y + height / 2); //translate origin
+  ctx.rotate((Math.PI / 180) * randomRange(0, 360)); //rotate the image around origin
+  ctx.translate(-x - width / 2, -x - height / 2); //translate back
+
+  ctx.beginPath();
+  ctx.ellipse(
+    x,
+    y,
+    eWidth,
+    eHeight,
+    randomRange(Math.PI, Math.PI - 0.05),
+    0,
+    2 * Math.PI
+  );
+  ctx.fillStyle =
+    autumnPalette[Math.floor(Math.random() * autumnPalette.length)];
+  ctx.fill();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x + eWidth, y);
+  ctx.bezierCurveTo(
+    x + eWidth,
+    y - eHeight / 2,
+    x - eWidth * 2,
+    y - eHeight / 2,
+    x - eWidth * 2,
+    y
+  );
+  ctx.stroke();
+  ctx.restore();
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+
 function draw(x, y) {
   if (state == "autumn") {
     autumnBrush(x, y);
@@ -219,7 +257,12 @@ function draw(x, y) {
       leaveBrush(x, y);
     }
   } else {
-    return;
+    // return;
+    leaves(x, y);
+
+    // if (distance(x, y, px, py) >= 5) {
+    //   leaves(x, y);
+    // }
   }
 }
 
@@ -254,10 +297,12 @@ canvas.addEventListener("mousedown", (event) => {
 
 canvas.addEventListener("touchstart", (event) => {
   let touches = Array.from(event.touches);
-  console.log(touches);
+  // console.log(touches);
   let touch = touches[0];
-  let x = touch.clientX;
-  let y = touch.clientY;
+  let pos = getMousePos(canvas, touch);
+  console.log(touch);
+  let x = pos.x;
+  let y = pos.y;
   drawStart(x, y);
 });
 
@@ -275,8 +320,9 @@ canvas.addEventListener("touchmove", (event) => {
   event.preventDefault();
   let touches = Array.from(event.touches);
   let touch = touches[0];
-  let x = touch.clientX;
-  let y = touch.clientY;
+  let pos = getMousePos(canvas, touch);
+  let x = pos.x;
+  let y = pos.y;
   paintMove(x, y);
 });
 
@@ -293,6 +339,7 @@ canvas.addEventListener("mouseout", (event) => {
 
 canvas.addEventListener("touchend", (event) => {
   let touches = Array.from(event.touches);
+  console.log(touches);
   let touch = touches[0];
   let x = px;
   let y = py;
