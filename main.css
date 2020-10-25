@@ -26,8 +26,9 @@ p {
 #canvas {
   /* box-shadow: 1px 1px 10px black; */
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1;
 }
 
@@ -46,7 +47,7 @@ p {
 button {
   font-family: "Roboto Mono", monospace;
   width: 23%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   background-color: blanchedalmond;
   padding: 10px;
   line-height: 2em;
