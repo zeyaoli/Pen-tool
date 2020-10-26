@@ -34,13 +34,19 @@ p {
   width: 800px;
   height: 800px;
 }
+#flexBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 #buttons {
-  width: 100vw;
+  width: 95vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 20px 0;
 }
 
 #buttons button {
@@ -72,10 +78,10 @@ p {
 #bgSelectBtn {
   display: flex;
   background: #f4f4f4;
-  width: 100vw;
+  width: 95vw;
   justify-content: space-between;
   align-items: center;
-  margin: 20px;
+  margin: 20px 0;
   padding: 10px;
   border-top: 3px solid black;
   border-bottom: 3px solid black;
@@ -90,7 +96,7 @@ p {
   border: none;
   border-top: 3px solid black;
 }
-#leaves {
+#chalk {
   border: none;
   border-top: 3px solid black;
 }

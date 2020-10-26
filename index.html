@@ -9,22 +9,25 @@
 </head>
 <body>
     <main>
-        <div id="blank"><p>Choose your brush and start creating</p></div>
+        <!-- <div id="blank"><p>Choose your brush and start creating</p></div> -->
         <canvas id ="canvas"></canvas>
-        <div id="bgSelectBtn">
-            <button id="undo-bg" class="select-btn"><img src="button-undo.png"></button>
-            <button id="left-bg" class="select-btn"><img src="button-left.png"></button>
-            <button id="right-bg" class="select-btn"><img src="button-right.png"></button>
+        <div id="flexBtn">
+            <div id="bgSelectBtn">
+                <button id="undo-btn" class="select-btn"><img src="button-undo.png"></button>
+                <button id="left-bg" class="select-btn"><img src="button-left.png"></button>
+                <button id="right-bg" class="select-btn"><img src="button-right.png"></button>
+            </div>
+            <div id="buttons">
+                <button id='autumnLeaves' class="tool-button">Autumn Leaves</button>
+                <button id='dirt' class="tool-button">Dirt</button>
+                <button id='chalk' class="tool-button">Chalk</button>
+                <button id='clear' class="tool-button">Clear</button>
+            </div>
         </div>
-        <div id="buttons">
-            <button id='autumnLeaves' class="tool-button">Autumn Leaves</button>
-            <button id='dirt' class="tool-button">Dirt</button>
-            <button id='leaves' class="tool-button">Leaves</button>
-            <button id='clear' class="tool-button">Clear</button>
-        </div>
+
     </main>
 
     
-    <script type="text/javascript" src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>
