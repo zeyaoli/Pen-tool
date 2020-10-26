@@ -24,10 +24,13 @@ let penDown = false;
 let px, py;
 
 let state = "blank";
+let bgState = 0;
 
 let autumnBtn = document.getElementById("autumnLeaves");
 let dirtBtn = document.getElementById("dirt");
 let chalkBtn = document.getElementById("chalk");
+let leftBgBtn = document.getElementById("left-bg");
+let rightBgBtn = document.getElementById("right-bg");
 
 //undo code from max
 
@@ -105,6 +108,36 @@ document.getElementById("clear").addEventListener("click", () => {
   ctx.drawImage(bgImg, 0, 0, width, height);
   resetButtonStyles();
 });
+
+leftBgBtn.addEventListener("click", () => {
+  if (bgState == 0) {
+    bgState = 2;
+    switchBg();
+  } else {
+    bgState--;
+    switchBg();
+  }
+});
+
+rightBgBtn.addEventListener("click", () => {
+  if (bgState == 2) {
+    bgState = 0;
+    switchBg();
+  } else {
+    bgState++;
+    switchBg();
+  }
+});
+
+function switchBg() {
+  if (bgState == 0) {
+    bgImg.src = "./test.jpg";
+  } else if (bgState == 1) {
+    bgImg.src = "./bg2.jpg";
+  } else if (bgState == 2) {
+    bgImg.src = "./bg3.jpg";
+  }
+}
 
 let lineColors = [
   `rgb(36,102,92)`,
@@ -205,9 +238,9 @@ function leaves(x, y) {
   let autumnPalette = [`#FF6034`, `#FF9828`, `#FFDB31`, `#D9D32F`];
   let eWidth = randomRange(25, 40);
   let eHeight = randomRange(5, 10);
-  ctx.translate(x + randomRange(-20, 20), y + randomRange(-20, 20)); //translate origin
+  ctx.translate(x + randomRange(-50, 50), y + randomRange(-50, 50)); //translate origin
   ctx.rotate((Math.PI / 180) * randomRange(0, 360)); //rotate the image around origin
-  ctx.translate(-x - randomRange(-20, 20), -y - randomRange(-20, 20)); //translate back
+  ctx.translate(-x - randomRange(-50, 50), -y - randomRange(-50, 50)); //translate back
 
   ctx.beginPath();
   ctx.ellipse(
