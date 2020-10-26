@@ -1,9 +1,7 @@
 import { pointsAlongLine } from "./vector.js";
 
 const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d", {
-  desynchronized: true,
-});
+const ctx = canvas.getContext("2d");
 
 // canvas.width = window.innerWidth;
 // canvas.height = window.innerHeight;
