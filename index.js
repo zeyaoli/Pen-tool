@@ -161,9 +161,12 @@ function distance(aX, aY, bX, bY) {
 
 function getMousePos(canvas, event) {
   const rect = canvas.getBoundingClientRect();
+  const canvasSize = canvas.width;
+  const displaySize = rect.width;
+  const ratio = canvasSize / displaySize;
   return {
-    x: event.clientX - rect.left,
-    y: event.clientY - rect.top,
+    x: event.clientX * ratio - rect.left,
+    y: event.clientY * ratio - rect.top,
   };
 }
 
